@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_timer/ticker.dart';
-import 'package:flutter_timer/timer/timer.dart';
+import 'package:my_timer/core/ticker.dart';
+import 'package:my_timer/timer/timer.dart';
 
 class TimerPage extends StatelessWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class Actions extends StatelessWidget {
           children: [
             if (state is TimerInitial) ...[
               FloatingActionButton(
-                child: Icon(Icons.play_arrow),
+                child: const Icon(Icons.play_arrow),
                 onPressed: () => context
                     .read<TimerBloc>()
                     .add(TimerStarted(duration: state.duration)),
@@ -75,27 +75,27 @@ class Actions extends StatelessWidget {
             ],
             if (state is TimerRunInProgress) ...[
               FloatingActionButton(
-                child: Icon(Icons.pause),
+                child: const Icon(Icons.pause),
                 onPressed: () => context.read<TimerBloc>().add(TimerPaused()),
               ),
               FloatingActionButton(
-                child: Icon(Icons.replay),
+                child: const Icon(Icons.replay),
                 onPressed: () => context.read<TimerBloc>().add(TimerReset()),
               ),
             ],
             if (state is TimerRunPause) ...[
               FloatingActionButton(
-                child: Icon(Icons.play_arrow),
+                child: const Icon(Icons.play_arrow),
                 onPressed: () => context.read<TimerBloc>().add(TimerResumed()),
               ),
               FloatingActionButton(
-                child: Icon(Icons.replay),
+                child: const Icon(Icons.replay),
                 onPressed: () => context.read<TimerBloc>().add(TimerReset()),
               ),
             ],
             if (state is TimerRunComplete) ...[
               FloatingActionButton(
-                child: Icon(Icons.replay),
+                child: const Icon(Icons.replay),
                 onPressed: () => context.read<TimerBloc>().add(TimerReset()),
               ),
             ]
