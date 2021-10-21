@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:arrows_bloc/arrows/arrows.dart';
+import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
 
 class App extends StatelessWidget {
   @override
@@ -7,8 +7,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Timer',
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(109, 234, 255, 1),
-        colorScheme: ColorScheme.light(
+        primaryColor: const Color.fromRGBO(109, 234, 255, 1),
+        colorScheme: const ColorScheme.light(
           secondary: Color.fromRGBO(72, 74, 126, 1),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:arrows_bloc/arrows/arrows.dart';
+import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
 
 class ArrowPage extends StatelessWidget {
   const ArrowPage({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class ArrowView extends StatelessWidget {
       appBar: AppBar(title: const Text('Flutter Arrows')),
       body: Stack(
         children: [
-          //const Background(),
+          const Background(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,6 +95,25 @@ class ActionsArrows extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class Background extends StatelessWidget {
+  const Background({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.blue.shade50,
+            Colors.blue.shade500,
+          ],
+        ),
+      ),
     );
   }
 }
