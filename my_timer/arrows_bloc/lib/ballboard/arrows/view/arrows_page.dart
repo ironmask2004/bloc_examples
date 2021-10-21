@@ -8,34 +8,7 @@ class ArrowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => ArrowsBloc(),
-      child: const ArrowView(),
-    );
-  }
-}
-
-class ArrowView extends StatelessWidget {
-  const ArrowView({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Arrows')),
-      body: Stack(
-        children: [
-          const Background(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 100.0),
-                child: Center(child: ArrowText()),
-              ),
-              //  Actions(),
-              ActionsArrows(),
-            ],
-          ),
-        ],
-      ),
+      child: const ActionsArrows(),
     );
   }
 }
@@ -46,7 +19,7 @@ class ArrowText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.select((ArrowsBloc bloc) => bloc.state.currentArrow),
-      style: Theme.of(context).textTheme.headline1,
+      style: Theme.of(context).textTheme.headline5,
     );
   }
 }
@@ -92,28 +65,10 @@ class ActionsArrows extends StatelessWidget {
               onPressed: () =>
                   context.read<ArrowsBloc>().add(const ArrowMovedDown()),
             ),
+            ArrowText(),
           ],
         );
       },
-    );
-  }
-}
-
-class Background extends StatelessWidget {
-  const Background({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.blue.shade50,
-            Colors.blue.shade500,
-          ],
-        ),
-      ),
     );
   }
 }

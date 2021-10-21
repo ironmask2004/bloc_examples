@@ -7,12 +7,12 @@ part 'ball_event.dart';
 part 'ball_state.dart';
 
 class BallBloc extends Bloc<BallEvent, BallState> {
-  final Ticker _ticker;
-  static const int _duration = 3;
+  final TimeTicker _ticker;
+  static const int _duration = 1;
 
   StreamSubscription<int>? _tickerSubscription;
 
-  BallBloc({required Ticker ticker})
+  BallBloc({required TimeTicker ticker})
       : _ticker = ticker,
         super(BallInitial(0, 0)) {
     on<BallStarted>((event, emit) {
@@ -20,7 +20,7 @@ class BallBloc extends Bloc<BallEvent, BallState> {
       _tickerSubscription?.cancel();
       _tickerSubscription = _ticker
           .tick(ticks: 1)
-          .listen((duration) => add(BallTicked(duration: 1)));
+          .listen((duration) => add(BallTicked(duration: _duration)));
     });
 
     on<BallPaused>((event, emit) {
@@ -34,7 +34,7 @@ class BallBloc extends Bloc<BallEvent, BallState> {
 
     on<BallReset>((event, emit) {
       _tickerSubscription?.cancel();
-      emit(DirectionBallInitial(0, 0));
+      emit(BallInitial(0, 0));
     });
 
     on<BallTicked>((event, emit) {

@@ -1,6 +1,7 @@
-class Ticker {
-  const Ticker();
+class TimeTicker {
+  const TimeTicker();
   Stream<int> tick({required int ticks}) {
-    return Stream.periodic(Duration(seconds: 1), (x) => x).take(ticks);
+    return Stream.periodic(const Duration(milliseconds: 500), (x) => x)
+        .take(ticks);
   }
 }
