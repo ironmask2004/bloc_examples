@@ -35,9 +35,9 @@ class ViewBall extends StatelessWidget {
                   context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
             ),
             FloatingActionButton(
-                child: const Icon(Icons.arrow_upward),
+                child: const Icon(Icons.pause_circle),
                 onPressed: () {
-                  context.read<BallBloc>().add(const BallDirChanged('UP'));
+                  context.read<BallBloc>().add(const BallPaused());
                 }),
           ],
         );
@@ -51,7 +51,7 @@ class ballText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      context.select((BallBloc bloc) => bloc.state.toString()),
+      context.select((BallBloc bloc) => bloc.state.props.toString()),
       style: Theme.of(context).textTheme.headline5,
     );
   }

@@ -13,7 +13,7 @@ class App1 extends StatelessWidget {
 
     BallBloc MyBallBloc =
         BallBloc(ticker: TimeTicker(), arrowsBloc: MyarrowsBloc)
-          ..add(const BallStarted(x: 1, y: 1));
+          ..add(const BallReset());
 
     print(MyarrowsBloc.runtimeType.hashCode.toString());
     return MultiBlocProvider(

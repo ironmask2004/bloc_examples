@@ -50,7 +50,6 @@ class BallBloc extends Bloc<BallEvent, BallState> {
 
     on<BallDirChanged>((event, emit) {
       _direction = event.newDirection;
-      print('BALLL CHANGED DIRE : $_direction');
       emit(BallRunChangeDir(_x, _y, _direction));
     });
 
@@ -62,48 +61,42 @@ class BallBloc extends Bloc<BallEvent, BallState> {
     });
 
     on<BallTicked>((event, emit) {
-      print(event.duration);
-      print(_arrowsBloc.state.currentArrow +
-          '----------ball ticked --------=====');
+      print('----------ball ticked --------=====');
 
-      if (event.duration <= 0) {
-        emit(BallRunComplete());
-      } else {
-        switch (state.direction) {
-          case 'UP':
-            {
-              print('=UP=');
+      switch (state.direction) {
+        case 'UP':
+          {
+            print('=UP=');
 
-              _y = (state.y <= 1) ? _maxY : state.y - 1;
+            _y = (state.y <= 1) ? _maxY : state.y - 1;
 
-              emit(BallRunInProgress(_x, _y, state.direction));
-              break;
-            }
-          case 'DN':
-            {
-              _y = (state.y >= _maxY) ? 1 : state.y + 1;
-              emit(BallRunInProgress(_x, _y, state.direction));
-              break;
-            }
-          case 'LF':
-            {
-              _x = (state.x <= 1) ? _maxX : state.x - 1;
-              emit(BallRunInProgress(_x, _y, state.direction));
-              break;
-            }
-          case 'RT':
-            {
-              _x = (state.x >= _maxX) ? 1 : state.x + 1;
-              emit(BallRunInProgress(_x, _y, state.direction));
-              break;
-            }
-          case '+':
-            {
-              print('+');
-              emit(BallRunInProgress(0, 0, state.direction));
-              break;
-            }
-        }
+            emit(BallRunInProgress(_x, _y, state.direction));
+            break;
+          }
+        case 'DN':
+          {
+            _y = (state.y >= _maxY) ? 1 : state.y + 1;
+            emit(BallRunInProgress(_x, _y, state.direction));
+            break;
+          }
+        case 'LF':
+          {
+            _x = (state.x <= 1) ? _maxX : state.x - 1;
+            emit(BallRunInProgress(_x, _y, state.direction));
+            break;
+          }
+        case 'RT':
+          {
+            _x = (state.x >= _maxX) ? 1 : state.x + 1;
+            emit(BallRunInProgress(_x, _y, state.direction));
+            break;
+          }
+        case '+':
+          {
+            print('+');
+            emit(BallRunInProgress(0, 0, state.direction));
+            break;
+          }
       }
     });
 
@@ -117,7 +110,6 @@ class BallBloc extends Bloc<BallEvent, BallState> {
   void _onResumed(BallResumed resume, Emitter<BallState> emit) {
     if (state is BallRunPause) {
       _tickerSubscription?.resume();
-      print(state.direction);
       emit(BallRunInProgress(state.x, state.y, state.direction));
     }
   }

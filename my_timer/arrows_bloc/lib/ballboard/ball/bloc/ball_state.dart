@@ -18,14 +18,14 @@ class BallInitial extends BallState {
   const BallInitial(int x, int y) : super(0, 0, '+');
 
   @override
-  String toString() => 'BallInitial { Position: $x:$y - $direction }';
+  String toString() => 'BallInitial';
 }
 
 class BallRunPause extends BallState {
   const BallRunPause(int x, int y, String direction) : super(x, y, direction);
 
   @override
-  String toString() => 'BallRunPause  { Position: $x:$y - $direction }';
+  String toString() => 'BallRunPause';
 }
 
 class BallRunInProgress extends BallState {
@@ -33,7 +33,7 @@ class BallRunInProgress extends BallState {
       : super(x, y, direction);
 
   @override
-  String toString() => 'BallRunInProgress  { Position: $x:$y - $direction }';
+  String toString() => 'BallRunInProgress';
 }
 
 class BallRunChangeDir extends BallState {
@@ -41,7 +41,7 @@ class BallRunChangeDir extends BallState {
       : super(x, y, direction);
 
   @override
-  String toString() => 'BallRunChangeDir  { Position: $x:$y - $direction }';
+  String toString() => 'BallRunChangeDir';
 }
 
 class BallRunComplete extends BallState {
