@@ -7,21 +7,18 @@ environment:
   sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
   todos_repository:
     path: todos_repository
   user_repository:
     path: user_repository
-  equatable: ^2.0.0
 
-dependency_overrides:
-  bloc:
-    path: ../../packages/bloc
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
+dependency_overrides: null
 
 flutter:
   uses-material-design: true
+dev_dependencies:
+  bloc: ^7.2.1
+  flutter_bloc: ^7.3.1

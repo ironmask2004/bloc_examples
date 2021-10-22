@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:arrows_bloc/ballboard/arrows/bloc/arrows_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
@@ -8,16 +11,30 @@ part 'ball_state.dart';
 
 class BallBloc extends Bloc<BallEvent, BallState> {
   final TimeTicker _ticker;
+  final ArrowsBloc _arrowsBloc;
   static const int _duration = 1;
+  int _x = 0;
+  int _y = 0;
+  int _maxY = 10;
+  int _maxX = 10;
   String _direction = '+';
 
   StreamSubscription<int>? _tickerSubscription;
 
-  BallBloc({required TimeTicker ticker})
+  StreamSubscription<ArrowsState>? _arrowsSubscription;
+
+  BallBloc({required TimeTicker ticker, required ArrowsBloc arrowsBloc})
       : _ticker = ticker,
-        super(BallInitial(0, 0)) {
+        _arrowsBloc = arrowsBloc,
+        super(const BallInitial(0, 0)) {
+    _arrowsSubscription?.cancel();
+    _arrowsSubscription = _arrowsBloc.stream
+        .listen((state) => add(BallDirChanged(state.currentArrow)));
+
     on<BallStarted>((event, emit) {
-      emit(BallRunInProgress(event.x, event.y, event.direction));
+      print('Ball Started!!!!');
+
+      emit(BallRunInProgress(_x, _y, _direction));
       _tickerSubscription?.cancel();
       _tickerSubscription = _ticker
           .tick()
@@ -32,9 +49,9 @@ class BallBloc extends Bloc<BallEvent, BallState> {
     });
 
     on<BallDirChanged>((event, emit) {
-      print('BALLL CHANGED DIRE : $state.direction');
-      emit(BallDirChanged(state.x, state.y, state.direction));
-      //emit(BallRunInProgress(state.x, state.y, _direction));
+      _direction = event.newDirection;
+      print('BALLL CHANGED DIRE : $_direction');
+      emit(BallRunChangeDir(_x, _y, _direction));
     });
 
     on<BallResumed>(_onResumed);
@@ -46,6 +63,8 @@ class BallBloc extends Bloc<BallEvent, BallState> {
 
     on<BallTicked>((event, emit) {
       print(event.duration);
+      print(_arrowsBloc.state.currentArrow +
+          '----------ball ticked --------=====');
 
       if (event.duration <= 0) {
         emit(BallRunComplete());
@@ -53,23 +72,29 @@ class BallBloc extends Bloc<BallEvent, BallState> {
         switch (state.direction) {
           case 'UP':
             {
-              print('UP');
-              emit(BallRunInProgress(state.x, state.y - 1, state.direction));
+              print('=UP=');
+
+              _y = (state.y <= 1) ? _maxY : state.y - 1;
+
+              emit(BallRunInProgress(_x, _y, state.direction));
               break;
             }
           case 'DN':
             {
-              emit(BallRunInProgress(state.x, state.y + 1, state.direction));
+              _y = (state.y >= _maxY) ? 1 : state.y + 1;
+              emit(BallRunInProgress(_x, _y, state.direction));
               break;
             }
           case 'LF':
             {
-              emit(BallRunInProgress(state.x - 1, state.y, state.direction));
+              _x = (state.x <= 1) ? _maxX : state.x - 1;
+              emit(BallRunInProgress(_x, _y, state.direction));
               break;
             }
           case 'RT':
             {
-              emit(BallRunInProgress(state.x + 1, state.y, state.direction));
+              _x = (state.x >= _maxX) ? 1 : state.x + 1;
+              emit(BallRunInProgress(_x, _y, state.direction));
               break;
             }
           case '+':
@@ -85,6 +110,7 @@ class BallBloc extends Bloc<BallEvent, BallState> {
     @override
     Future<void> close() {
       _tickerSubscription?.cancel();
+      _arrowsSubscription?.cancel();
       return super.close();
     }
   }

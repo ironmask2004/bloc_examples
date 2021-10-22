@@ -8,6 +8,7 @@ part 'arrows_state.dart';
 class ArrowsBloc extends Bloc<ArrowsEvent, ArrowsState> {
   ArrowsBloc() : super(const ArrowsInitial()) {
     on<ArrowInitialized>((event, emit) {
+      print('initailazation:' + runtimeType.hashCode.toString());
       if (state is! ArrowsInitial) emit(const ArrowsInitial());
     });
     on<ArrowMovedUP>((event, emit) {
@@ -21,6 +22,10 @@ class ArrowsBloc extends Bloc<ArrowsEvent, ArrowsState> {
     });
     on<ArrowMovedLift>((event, emit) {
       if (state is! ArrowsLEFT) emit(const ArrowsLEFT());
+    });
+
+    on<ArrowsChangedTo>((event, emit) {
+      if (state is! ArrowsChangeTo) emit(ArrowsChangeTo(event.currentArrow));
     });
   }
 }

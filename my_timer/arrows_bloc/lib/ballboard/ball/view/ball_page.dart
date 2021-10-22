@@ -1,9 +1,10 @@
+import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:arrows_bloc/ballboard/ball/ball.dart';
 import 'package:arrows_bloc/core/ticker.dart';
 
-class BallPage extends StatelessWidget {
+/* class BallPage extends StatelessWidget {
   const BallPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class BallPage extends StatelessWidget {
     );
   }
 }
-
+*/
 class ViewBall extends StatelessWidget {
   const ViewBall({Key? key}) : super(key: key);
   @override
@@ -34,10 +35,10 @@ class ViewBall extends StatelessWidget {
                   context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
             ),
             FloatingActionButton(
-              child: const Icon(Icons.arrow_upward),
-              onPressed: () =>
-                  context.read<BallBloc>().add(const BallDirChanged('UP')),
-            ),
+                child: const Icon(Icons.arrow_upward),
+                onPressed: () {
+                  context.read<BallBloc>().add(const BallDirChanged('UP'));
+                }),
           ],
         );
       },

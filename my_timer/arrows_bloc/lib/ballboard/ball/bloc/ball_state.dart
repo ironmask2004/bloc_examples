@@ -11,7 +11,7 @@ abstract class BallState extends Equatable {
   const BallState(this.x, this.y, this.direction);
 
   @override
-  List<Object> get props => [x, y];
+  List<Object> get props => [x, y, direction];
 }
 
 class BallInitial extends BallState {

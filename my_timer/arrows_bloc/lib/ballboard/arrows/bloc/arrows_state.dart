@@ -44,3 +44,10 @@ class ArrowsRIGHT extends ArrowsState {
   @override
   String toString() => 'Current Arrow is : RT ';
 }
+
+class ArrowsChangeTo extends ArrowsState {
+  const ArrowsChangeTo(currentArrow) : super(currentArrow);
+
+  @override
+  String toString() => 'Current Arrow is : $currentArrow ';
+}

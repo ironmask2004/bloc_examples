@@ -33,7 +33,9 @@ class BallReset extends BallEvent {
 }
 
 class BallDirChanged extends BallEvent {
-  const BallDirChanged(int x, int y, String direction);
+  final String newDirection;
+
+  const BallDirChanged(this.newDirection);
 }
 
 class BallTicked extends BallEvent {

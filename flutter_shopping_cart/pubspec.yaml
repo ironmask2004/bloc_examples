@@ -7,27 +7,19 @@ environment:
   sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
+  equatable: ^2.0.0
   flutter:
     sdk: flutter
-  bloc:
-    path: ../../packages/bloc
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
-  equatable: ^2.0.0
 
 dev_dependencies:
+  bloc: ^7.2.1
+  bloc_test: ^8.2.0
+  flutter_bloc: ^7.3.1
   flutter_test:
     sdk: flutter
-  bloc_test: ^8.0.2
   mocktail: ^0.1.0
 
-dependency_overrides:
-  bloc:
-    path: ../../packages/bloc
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
-  bloc_test:
-    path: ../../packages/bloc_test
+dependency_overrides: null
 
 flutter:
   uses-material-design: true
