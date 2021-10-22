@@ -28,6 +28,16 @@ class ViewBall extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ballText(),
+            FloatingActionButton(
+              child: const Icon(Icons.run_circle),
+              onPressed: () =>
+                  context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
+            ),
+            FloatingActionButton(
+              child: const Icon(Icons.arrow_upward),
+              onPressed: () =>
+                  context.read<BallBloc>().add(const BallDirChanged('UP')),
+            ),
           ],
         );
       },

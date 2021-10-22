@@ -12,7 +12,7 @@ class BallStarted extends BallEvent {
   const BallStarted({required this.x, required this.y});
   final int x;
   final int y;
-  final String Direction = '+';
+  final String direction = '+';
 }
 
 class BallPaused extends BallEvent {
@@ -23,12 +23,22 @@ class BallResumed extends BallEvent {
   const BallResumed();
 }
 
+/*
+class BallRunInProgress extends BallEvent {
+  const BallRunInProgress();
+}
+*/
 class BallReset extends BallEvent {
   const BallReset();
 }
 
+class BallDirChanged extends BallEvent {
+  const BallDirChanged(int x, int y, String direction);
+}
+
 class BallTicked extends BallEvent {
   final int duration;
+
   const BallTicked({required this.duration});
 
   @override
