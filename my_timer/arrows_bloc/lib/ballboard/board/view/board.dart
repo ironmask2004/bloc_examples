@@ -148,7 +148,7 @@ class Grid extends StatelessWidget {
       return prev.runtimeType != state.runtimeType;
     }, builder: (context, state) {
       return Container(
-        height: height * 0.65,
+        height: height * 0.60,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(

@@ -26,23 +26,45 @@ class ViewBall extends StatelessWidget {
       },
       builder: (context, state) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ballText(),
-            FloatingActionButton(
+            /*FloatingActionButton(
               child: const Icon(Icons.run_circle),
               onPressed: () =>
                   context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
-            ),
-            FloatingActionButton(
+            ),*/
+            newMethod(context),
+            /*BlocBuilder<BallBloc, BallState>(
+              builder: (context, state) {
+                return newMethod(context);
+              },
+            ),*/
+            /* FloatingActionButton(
                 child: const Icon(Icons.pause_circle),
                 onPressed: () {
                   context.read<BallBloc>().add(const BallPaused());
-                }),
+                })*/
           ],
         );
       },
     );
+  }
+
+  FloatingActionButton newMethod(BuildContext context) {
+    final _ballState = context.select((BallBloc bloc) => bloc.state);
+
+    if (_ballState is! BallRunInProgress) {
+      return FloatingActionButton(
+        child: const Icon(Icons.run_circle),
+        onPressed: () =>
+            context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
+      );
+    } else {
+      return FloatingActionButton(
+          child: const Icon(Icons.pause_circle),
+          onPressed: () => context.read<BallBloc>().add(const BallPaused()));
+    }
   }
 }
 

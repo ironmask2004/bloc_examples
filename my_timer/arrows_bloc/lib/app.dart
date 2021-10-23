@@ -56,8 +56,10 @@ class homePage1 extends StatelessWidget {
                 // ),
 
                 Board(),
-                ViewBall(),
-                ActionsArrows(),
+                Row(children: [
+                  ViewBall(),
+                  ActionsArrows(),
+                ])
               ],
             ),
           ],
