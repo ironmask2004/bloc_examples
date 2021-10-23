@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:arrows_bloc/ballboard/ball/ball.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Board extends StatelessWidget {
   final numbers = [
@@ -121,6 +123,7 @@ class Board extends StatelessWidget {
         /// child: Column(
         //  children: <Widget>[
         //   MyTitle(size),
+
         Grid(numbers, size); //,
     //   Menu(reset, move, secondsPassed, size),
     //  ],
@@ -139,32 +142,37 @@ class Grid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = size.height;
-
-    return Container(
-      height: height * 0.65,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 10,
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 1,
-              childAspectRatio: 1.3),
-          itemCount: numbers.length,
-          itemBuilder: (context, index) {
-            /*return numbers[index] != 0
+    return BlocBuilder<BallBloc, BallState>(buildWhen: (prev, state) {
+      print('Prev: $prev Next $state');
+      print(state.props.toString());
+      return prev.runtimeType != state.runtimeType;
+    }, builder: (context, state) {
+      return Container(
+        height: height * 0.65,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 10,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                childAspectRatio: 1.4),
+            itemCount: numbers.length,
+            itemBuilder: (context, index) {
+              /*return numbers[index] != 0
                 ? GridButton("${numbers[index]}", () {
                     print(index.toString());
                   })
                 : SizedBox.shrink();
           */
-            return GridButton("${numbers[index]}", () {
-              print(index.toString());
-            });
-          },
+              return GridButton("${numbers[index]}", () {
+                print(index.toString());
+              });
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -194,3 +202,87 @@ class GridButton extends StatelessWidget {
     );
   }
 }
+
+class GridButtonBloc extends StatelessWidget {
+  final Function click;
+  final String text;
+
+  //GridButtonBloc(this.text, this.click);
+
+  const GridButtonBloc(this.text, this.click);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BallBloc, BallState>(buildWhen: (prev, state) {
+      print('Prev: $prev Next $state');
+      print(state.props.toString());
+      return prev.runtimeType != state.runtimeType;
+    }, builder: (context, state) {
+      return ElevatedButton(
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        //style: ElevatedButton.styleFrom(
+        //      fixedSize: const Size(60, 60)), //, primary: Colors.deepOrange),
+        // color: Colors.white,
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: new BorderRadius.circular(8.0),
+        // ),
+        onPressed: () => (print('Pressed')),
+      );
+    });
+  }
+}
+/*
+
+
+
+
+class ViewBall extends StatelessWidget {
+  const ViewBall({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BallBloc, BallState>(
+      buildWhen: (prev, state) {
+        print('Prev: $prev Next $state');
+        return prev.runtimeType != state.runtimeType;
+      },
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ballText(),
+            FloatingActionButton(
+              child: const Icon(Icons.run_circle),
+              onPressed: () =>
+                  context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
+            ),
+            FloatingActionButton(
+                child: const Icon(Icons.pause_circle),
+                onPressed: () {
+                  context.read<BallBloc>().add(const BallPaused());
+                }),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class ballText extends StatelessWidget {
+  const ballText({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      context.select((BallBloc bloc) => bloc.state.props.toString()),
+      style: Theme.of(context).textTheme.headline5,
+    );
+  }
+}
+
+
+*/

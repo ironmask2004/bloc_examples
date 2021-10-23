@@ -25,7 +25,7 @@ class ViewBall extends StatelessWidget {
         return prev.runtimeType != state.runtimeType;
       },
       builder: (context, state) {
-        return Column(
+        return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ballText(),

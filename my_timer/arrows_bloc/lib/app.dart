@@ -54,8 +54,9 @@ class homePage1 extends StatelessWidget {
                 // child: Center(child: ViewBall()),
 
                 // ),
-                //  Actions(),
+
                 Board(),
+                ViewBall(),
                 ActionsArrows(),
               ],
             ),
