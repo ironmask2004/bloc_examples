@@ -15,8 +15,8 @@ class BallBloc extends Bloc<BallEvent, BallState> {
   static const int _duration = 1;
   int _x = 0;
   int _y = 0;
-  int _maxY = 10;
-  int _maxX = 10;
+  int _maxY = 9;
+  int _maxX = 9;
   String _direction = '+';
 
   StreamSubscription<int>? _tickerSubscription;
@@ -68,7 +68,7 @@ class BallBloc extends Bloc<BallEvent, BallState> {
           {
             print('=UP=');
 
-            _y = (state.y <= 1) ? _maxY : state.y - 1;
+            _y = (state.y <= 0) ? _maxY : state.y - 1;
 
             emit(BallRunInProgress(_x, _y, state.direction));
             break;
@@ -81,7 +81,7 @@ class BallBloc extends Bloc<BallEvent, BallState> {
           }
         case 'LF':
           {
-            _x = (state.x <= 1) ? _maxX : state.x - 1;
+            _x = (state.x <= 0) ? _maxX : state.x - 1;
             emit(BallRunInProgress(_x, _y, state.direction));
             break;
           }

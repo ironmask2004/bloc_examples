@@ -34,7 +34,7 @@ class ViewBall extends StatelessWidget {
               onPressed: () =>
                   context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
             ),*/
-            newMethod(context),
+            BallFloatingAction(context),
             /*BlocBuilder<BallBloc, BallState>(
               builder: (context, state) {
                 return newMethod(context);
@@ -51,7 +51,7 @@ class ViewBall extends StatelessWidget {
     );
   }
 
-  FloatingActionButton newMethod(BuildContext context) {
+  FloatingActionButton BallFloatingAction(BuildContext context) {
     final _ballState = context.select((BallBloc bloc) => bloc.state);
 
     if (_ballState is! BallRunInProgress) {
