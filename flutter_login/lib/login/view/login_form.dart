@@ -6,8 +6,8 @@ import 'package:formz/formz.dart';
 class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Bloc er<LoginBloc, LoginState>(
-       er: (context, state) {
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
         if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
