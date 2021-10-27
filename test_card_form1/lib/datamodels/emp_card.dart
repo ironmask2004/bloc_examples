@@ -1,5 +1,5 @@
 import 'dart:convert';
-//import 'package:reflectable/reflectable.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -21,7 +21,7 @@ genderEnum genderFromString(value) {
       (e) => e.toString().split('.')[1].toUpperCase() == value.toUpperCase());
 }
 
-extension strToGender on String {
+extension StrToGender on String {
   genderEnum? get genderValue {
     try {
       return (genderEnum.values.firstWhere((e) =>
@@ -38,7 +38,7 @@ class EmpCard extends Equatable {
   final String addrees;
   final genderEnum gender;
 
-  EmpCard({
+  const EmpCard({
     required this.id,
     required this.name,
     required this.addrees,
