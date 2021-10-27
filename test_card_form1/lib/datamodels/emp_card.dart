@@ -1,22 +1,35 @@
 import 'dart:convert';
-
+//import 'package:reflectable/reflectable.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 enum genderEnum { male, fmale, unkown }
 
-extension GenderEnumList on genderEnum {
-  static const values = [1, 2, 3];
-  int get value => values[index];
+extension GenderToString on genderEnum {
+  String get name {
+    // return ["male", "fmale", "unkown"][index];
+    try {
+      return describeEnum(this);
+    } catch (err) {
+      return 'unkown';
+    }
+  }
 }
 
-extension GenderEnumMap on genderEnum {
-  static const valueMap = {
-    genderEnum.male: 1,
-    genderEnum.fmale: 2,
-    genderEnum.unkown: 3,
-  };
+genderEnum genderFromString(value) {
+  return genderEnum.values.firstWhere(
+      (e) => e.toString().split('.')[1].toUpperCase() == value.toUpperCase());
+}
 
-  int? get value => valueMap[this];
+extension strToGender on String {
+  genderEnum? get genderValue {
+    try {
+      return (genderEnum.values.firstWhere((e) =>
+          e.toString().split('.')[1].toUpperCase() == this.toUpperCase()));
+    } catch (err) {
+      return genderEnum.unkown;
+    }
+  }
 }
 
 class EmpCard extends Equatable {
@@ -51,16 +64,19 @@ class EmpCard extends Equatable {
       'id': id,
       'name': name,
       'addrees': addrees,
-      'gender': GenderEnumList(gender)
+      'gender': gender.name,
+      // 'gender': describeEnum(gender)
     };
   }
 
   factory EmpCard.fromMap(Map<String, dynamic> map) {
+    //print(map.toString());
     return EmpCard(
       id: map['id'],
       name: map['name'],
       addrees: map['addrees'],
-      gender: genderEnum.values[map['gender']],
+      //  gender: genderFromString(map['gender']));
+      gender: map['gender'].toString().genderValue!,
     );
   }
 

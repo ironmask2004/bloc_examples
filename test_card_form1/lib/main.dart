@@ -3,14 +3,29 @@ import 'package:flutter/material.dart';
 import 'datamodels/emp_card.dart';
 
 void main() {
-  EmpCard mycard =
-      EmpCard(id: '1', name: 'kf', addrees: 'Dmascus', gender: genderEnum.male);
+  EmpCard mycard = EmpCard(
+      id: '1', name: 'kf', addrees: 'Dmascus', gender: genderEnum.fmale);
+
+  EmpCard mycard2 = EmpCard.fromMap(mycard.toMap());
+
+  EmpCard Mycard3 = EmpCard.fromMap({
+    "id": "3",
+    "name": "kfqqqq",
+    "addrees": "Dmascusqqqq",
+    "gender": "male"
+  });
+
+  EmpCard Mycard4 = EmpCard.fromJson(Mycard3.toJson());
   //runApp(const MyApp());
 
-  print(mycard.toJson());
+  // print(GenderEnumTostring(genderEnum.fmale).value);
 
-  print(mycard.toMap());
-  print(mycard.toString());
+  print(Mycard4.toMap());
+  print(Mycard4.toJson());
+
+  // print(mycard.toString());
+  EmpCard Mycard5 = Mycard3.copyWith(id: '5');
+  print(Mycard5);
 }
 
 class MyApp extends StatelessWidget {
