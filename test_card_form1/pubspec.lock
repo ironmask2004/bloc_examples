@@ -88,6 +88,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  formz:
+    dependency: "direct dev"
+    description:
+      name: formz
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.1"
   lints:
     dependency: transitive
     description:

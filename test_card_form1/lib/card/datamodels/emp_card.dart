@@ -36,12 +36,14 @@ class EmpCard extends Equatable {
   final String id;
   final String name;
   final String addrees;
+  final double salary;
   final genderEnum gender;
 
   const EmpCard({
     required this.id,
     required this.name,
     required this.addrees,
+    required this.salary,
     required this.gender,
   });
 
@@ -49,12 +51,15 @@ class EmpCard extends Equatable {
     String? id,
     String? name,
     String? addrees,
+    double? salary,
     genderEnum? gender,
   }) {
+    print(this.salary.toString());
     return EmpCard(
       id: id ?? this.id,
       name: name ?? this.name,
       addrees: addrees ?? this.addrees,
+      salary: salary ?? this.salary,
       gender: gender ?? this.gender,
     );
   }
@@ -64,18 +69,18 @@ class EmpCard extends Equatable {
       'id': id,
       'name': name,
       'addrees': addrees,
+      'salary': salary,
       'gender': gender.name,
       // 'gender': describeEnum(gender)
     };
   }
 
   factory EmpCard.fromMap(Map<String, dynamic> map) {
-    //print(map.toString());
     return EmpCard(
       id: map['id'],
       name: map['name'],
+      salary: map['salary'],
       addrees: map['addrees'],
-      //  gender: genderFromString(map['gender']));
       gender: map['gender'].toString().genderValue!,
     );
   }
@@ -89,5 +94,5 @@ class EmpCard extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [id, name, addrees, gender];
+  List<Object> get props => [id, name, addrees, salary, gender];
 }
