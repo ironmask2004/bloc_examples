@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:test_card_form1/card/view/card_view.dart';
 
- import 'package:flutter/material.dart';
-  
 class App extends StatelessWidget {
   const App({
     Key? key,
     //required this.authenticationRepository,
-   // required this.userRepository,
+    // required this.userRepository,
   }) : super(key: key);
 
   //final AuthenticationRepository authenticationRepository;
@@ -13,9 +14,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-         AppView()
-     
+    return AppView();
+  }
 }
 
 class AppView extends StatefulWidget {
@@ -31,34 +31,25 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: _navigatorKey,
-      builder: (context, child) {
-        return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
-            print(child.toString());
-            switch (state.status) {
-              case AuthenticationStatus.authenticated:
-                print(child.toString());
-                _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                  (route) => false,
-                );
-                break;
-              case AuthenticationStatus.unauthenticated:
-                print(child.toString());
-                _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(),
-                  (route) => false,
-                );
-                break;
-              default:
-                break;
-            }
-          },
-          child: child,
-        );
-      },
-      onGenerateRoute: (_) => SplashPage.route(),
+        home: Scaffold(
+      appBar: AppBar(title: const Text('Login')),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: CardForm(),
+      ),
+    ));
+  }
+}
+
+class SplashPage extends StatelessWidget {
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => SplashPage());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

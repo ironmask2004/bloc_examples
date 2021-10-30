@@ -1,2 +1,2 @@
 export 'empcard_form.dart';
-export 'empcard_view.dart';
+export 'empcard_page.dart';

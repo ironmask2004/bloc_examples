@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:formz/formz.dart';
 
-class LoginForm extends StatelessWidget {
+class CardForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
