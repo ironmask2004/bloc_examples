@@ -74,7 +74,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
           }
         case 'DN':
           {
-            _y = (_wormHead.y >= _maxY) ? 0 : _wormHead.y + 1;
+            _y = (_wormHead.y == 0) ? _maxY : _wormHead.y + 1;
             break;
           }
         case 'LF':
@@ -90,6 +90,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
         case '+':
           {
             print('+');
+            //
 
             break;
           }
