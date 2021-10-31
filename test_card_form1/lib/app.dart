@@ -42,6 +42,8 @@ class _AppViewState extends State<AppView> {
 }
 
 class SplashPage extends StatelessWidget {
+  const SplashPage({Key? key}) : super(key: key);
+
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => SplashPage());
   }

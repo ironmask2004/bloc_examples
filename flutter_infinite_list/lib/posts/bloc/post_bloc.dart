@@ -67,6 +67,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         <String, String>{'_start': '$startIndex', '_limit': '$_postLimit'},
       ),
     );
+
     if (response.statusCode == 200) {
       final body = json.decode(response.body) as List;
       return body.map((dynamic json) {

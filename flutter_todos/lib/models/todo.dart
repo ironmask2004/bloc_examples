@@ -11,12 +11,12 @@ class Todo extends Equatable {
   Todo(
     this.task, {
     this.complete = false,
-    String note = '',
-    String id,
+    String? note = '',
+    String? id,
   })  : this.note = note ?? '',
         this.id = id ?? Uuid().generateV4();
 
-  Todo copyWith({bool complete, String id, String note, String task}) {
+  Todo copyWith({bool? complete, String? id, String? note, String? task}) {
     return Todo(
       task ?? this.task,
       complete: complete ?? this.complete,

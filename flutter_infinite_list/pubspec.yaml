@@ -8,11 +8,9 @@ environment:
 
 dependencies:
   bloc_concurrency:
-    path: ../../packages/bloc_concurrency
   flutter:
     sdk: flutter
   flutter_bloc:
-    path: ../../packages/flutter_bloc
   http: ^0.13.0
   equatable: ^2.0.3
   stream_transform: ^2.0.0
@@ -24,12 +22,6 @@ dev_dependencies:
   mocktail: ^0.1.0
 
 dependency_overrides:
-  bloc:
-    path: ../../packages/bloc
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
-  bloc_test:
-    path: ../../packages/bloc_test
 
 flutter:
   uses-material-design: true

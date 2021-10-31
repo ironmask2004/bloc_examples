@@ -8,7 +8,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 class DetailsScreen extends StatelessWidget {
   final String id;
 
-  DetailsScreen({Key key, @required this.id})
+  DetailsScreen({Key? key, required this.id})
       : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -17,7 +17,7 @@ class DetailsScreen extends StatelessWidget {
       builder: (context, state) {
         final todo = (state as TodosLoadSuccess)
             .todos
-            .firstWhere((todo) => todo.id == id, orElse: () => null);
+            .firstWhere((todo) => todo.id == id );
         final localizations = ArchSampleLocalizations.of(context);
         return Scaffold(
           appBar: AppBar(

@@ -9,19 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
   graphql: ^5.0.0
   json_annotation: ^4.0.0
 
-dependency_overrides:
-  bloc:
-    path: ../../packages/bloc
-  flutter_bloc:
-    path: ../../packages/flutter_bloc
+dependency_overrides: null
 
 dev_dependencies:
+  bloc: ^7.2.1
   build_runner: ^2.0.0
+  flutter_bloc: ^7.3.1
   json_serializable: ^4.0.0
 
 flutter:
