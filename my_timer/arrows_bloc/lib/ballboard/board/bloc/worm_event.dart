@@ -34,6 +34,10 @@ class WormtailAded extends WormEvent {
   const WormtailAded();
 }
 
+class Wormtailremoved extends WormEvent {
+  const Wormtailremoved();
+}
+
 class WormMoved extends WormEvent {
   const WormMoved();
 }

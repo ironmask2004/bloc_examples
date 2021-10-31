@@ -1,20 +1,10 @@
 import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
+import 'package:arrows_bloc/ballboard/board/bloc/worm_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:arrows_bloc/ballboard/ball/ball.dart';
 import 'package:arrows_bloc/core/ticker.dart';
 
-/* class BallPage extends StatelessWidget {
-  const BallPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BallBloc(ticker: TimeTicker()),
-      child: const ViewBall(),
-    );
-  }
-}
-*/
 class ViewBall extends StatelessWidget {
   const ViewBall({Key? key}) : super(key: key);
   @override
@@ -29,22 +19,9 @@ class ViewBall extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ballText(),
-            /*FloatingActionButton(
-              child: const Icon(Icons.run_circle),
-              onPressed: () =>
-                  context.read<BallBloc>().add(const BallStarted(x: 0, y: 0)),
-            ),*/
             BallFloatingAction(context),
-            /*BlocBuilder<BallBloc, BallState>(
-              builder: (context, state) {
-                return newMethod(context);
-              },
-            ),*/
-            /* FloatingActionButton(
-                child: const Icon(Icons.pause_circle),
-                onPressed: () {
-                  context.read<BallBloc>().add(const BallPaused());
-                })*/
+            BallAddTailFloatingAction(context),
+            BallRemoveTailFloatingAction(context),
           ],
         );
       },
@@ -65,6 +42,32 @@ class ViewBall extends StatelessWidget {
           child: const Icon(Icons.pause_circle),
           onPressed: () => context.read<BallBloc>().add(const BallPaused()));
     }
+  }
+}
+
+FloatingActionButton BallAddTailFloatingAction(BuildContext context) {
+  final _ballState = context.select((BallBloc bloc) => bloc.state);
+
+  if (_ballState is BallRunInProgress) {
+    return FloatingActionButton(
+        child: const Icon(Icons.double_arrow),
+        onPressed: () => context.read<WormBloc>().add(const WormtailAded()));
+  } else {
+    return FloatingActionButton(
+        child: const Icon(Icons.double_arrow), onPressed: () => print('-'));
+  }
+}
+
+FloatingActionButton BallRemoveTailFloatingAction(BuildContext context) {
+  final _ballState = context.select((BallBloc bloc) => bloc.state);
+
+  if (_ballState is BallRunInProgress) {
+    return FloatingActionButton(
+        child: const Icon(Icons.arrow_back),
+        onPressed: () => context.read<WormBloc>().add(const Wormtailremoved()));
+  } else {
+    return FloatingActionButton(
+        child: const Icon(Icons.double_arrow), onPressed: () => print('-'));
   }
 }
 

@@ -21,16 +21,14 @@ class App1 extends StatelessWidget {
       ..add(const WormReset());
 
     // print(MyarrowsBloc.runtimeType.hashCode.toString());
-    print('MyWormBloc: ' + MyWormBloc.state.worm.balls.toString());
-    MyWormBloc.add(const WormDirChanged("DN"));
-    MyWormBloc.add(const WormtailAded());
 
-    print(MyWormBloc.state.worm.balls);
+    print('MyWormBloc: ' + MyWormBloc.state.worm.balls.toString());
 
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => MyarrowsBloc),
-          BlocProvider(create: (_) => MyBallBloc)
+          BlocProvider(create: (_) => MyBallBloc),
+          BlocProvider(create: (_) => MyWormBloc)
         ],
         child: MaterialApp(
           title: 'Flutter Ball Bloc',

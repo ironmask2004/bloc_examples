@@ -51,3 +51,10 @@ class WormTailAdd extends WormState {
   @override
   String toString() => 'WormRunInProgress';
 }
+
+class WormTailremove extends WormState {
+  const WormTailremove(List<int> wormCanvas, Worm worm)
+      : super(wormCanvas, worm);
+  @override
+  String toString() => 'WormRunInProgress';
+}

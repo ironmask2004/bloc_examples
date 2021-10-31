@@ -74,7 +74,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
           }
         case 'DN':
           {
-            _y = (_wormHead.y == 0) ? _maxY : _wormHead.y + 1;
+            _y = (_wormHead.y >= _maxY) ? 0 : _wormHead.y + 1;
             break;
           }
         case 'LF':
@@ -107,28 +107,28 @@ class WormBloc extends Bloc<WormEvent, WormState> {
 
       int _x = _wormLast.x, _y = _wormLast.y;
 
-      print('----------ball moved --------=====');
+      print('----------ball Add taile --------=====');
       switch (_wormLast.direction) {
         case 'UP':
           {
             print('=UP=');
 
-            _y = (_wormLast.y <= 0) ? _maxY : _wormLast.y + 1;
+            _y = (_wormLast.y > _maxY) ? 0 : _wormLast.y + 1;
             break;
           }
         case 'DN':
           {
-            _y = (_wormLast.y >= _maxY) ? 0 : _wormLast.y - 1;
+            _y = (_wormLast.y == 0) ? _maxY : _wormLast.y - 1;
             break;
           }
         case 'LF':
           {
-            _x = (_wormLast.x <= 0) ? _maxX : _wormLast.x + 1;
+            _x = (_wormLast.x > _maxX) ? 0 : _wormLast.x + 1;
             break;
           }
         case 'RT':
           {
-            _x = (_wormLast.x >= _maxX) ? 0 : _wormLast.x - 1;
+            _x = (_wormLast.x == 0) ? _maxX : _wormLast.x - 1;
             break;
           }
         case '+':
@@ -139,6 +139,12 @@ class WormBloc extends Bloc<WormEvent, WormState> {
           }
       }
       _worm.balls.add(Point(_x, _y, _wormLast.direction));
+      print(_worm.balls.toString());
+      emit(WormRunInProgress(_wormCanvas, _worm));
+    });
+
+    on<Wormtailremoved>((event, emit) {
+      _worm.balls.removeLast();
       print(_worm.balls.toString());
       emit(WormRunInProgress(_wormCanvas, _worm));
     });

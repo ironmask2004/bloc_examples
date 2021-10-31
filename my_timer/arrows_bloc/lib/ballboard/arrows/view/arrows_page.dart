@@ -13,18 +13,6 @@ class ArrowPage extends StatelessWidget {
   }
 }
 
-/*
-class ArrowText extends StatelessWidget {
-  const ArrowText({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      context.select((ArrowsBloc bloc) => bloc.state.currentArrow),
-      style: Theme.of(context).textTheme.headline5,
-    );
-  }
-}
-*/
 class ActionsArrows extends StatelessWidget {
   const ActionsArrows({Key? key}) : super(key: key);
   @override
