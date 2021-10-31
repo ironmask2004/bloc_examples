@@ -6,6 +6,8 @@ import 'package:arrows_bloc/core/ticker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:arrows_bloc/ballboard/board/view/board_page.dart';
 
+import 'ballboard/board/view/board_view.dart';
+
 class App1 extends StatelessWidget {
   const App1({Key? key}) : super(key: key);
 
@@ -63,11 +65,15 @@ class homePage1 extends StatelessWidget {
 
                 // ),
 
-                Board(),
-                Row(children: [
-                  ViewBall(),
-                  ActionsArrows(),
-                ])
+                // Board(),
+                BoardView(),
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ViewBall(),
+                      ActionsArrows(),
+                    ])
               ],
             ),
           ],

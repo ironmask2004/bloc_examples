@@ -30,8 +30,8 @@ class WormDirChanged extends WormEvent {
   const WormDirChanged(this.newDirection);
 }
 
-class WormtailAded extends WormEvent {
-  const WormtailAded();
+class WormtailAdded extends WormEvent {
+  const WormtailAdded();
 }
 
 class Wormtailremoved extends WormEvent {
@@ -40,4 +40,9 @@ class Wormtailremoved extends WormEvent {
 
 class WormMoved extends WormEvent {
   const WormMoved();
+}
+
+class WormTicked extends WormEvent {
+  final String state1;
+  const WormTicked(this.state1);
 }

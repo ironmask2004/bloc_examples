@@ -1,110 +1,10 @@
+import 'package:arrows_bloc/ballboard/board/model/worm.dart';
 import 'package:flutter/material.dart';
-import 'package:arrows_bloc/ballboard/ball/ball.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Board extends StatelessWidget {
-  final numbers = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9
-  ];
+import 'package:arrows_bloc/ballboard/board/bloc/worm_bloc.dart';
+
+class BoardView extends StatelessWidget {
   final int size = 10;
 
   // static const duration = const Duration(seconds: 1);
@@ -124,7 +24,7 @@ class Board extends StatelessWidget {
         //  children: <Widget>[
         //   MyTitle(size),
 
-        Grid(numbers, size); //,
+        Grid(size); //,
     //   Menu(reset, move, secondsPassed, size),
     //  ],
     // ),
@@ -133,47 +33,53 @@ class Board extends StatelessWidget {
 }
 
 class Grid extends StatelessWidget {
-  var numbers = [];
   var size;
   //Function clickBoard;
 
-  Grid(this.numbers, this.size); //, this.clickBoard);
+  Grid(this.size); //, this.clickBoard);
 
   @override
   Widget build(BuildContext context) {
     var height = size.height;
-    return BlocBuilder<BallBloc, BallState>(buildWhen: (prev, state) {
+    return BlocBuilder<WormBloc, WormState>(buildWhen: (prev, state) {
       print(
           'Prev: ' + prev.props.toString() + ' Next ' + state.props.toString());
-      print('-----------------===============-------' + state.props.toString());
-      return (prev.props.first.toString() != state.props.first.toString());
+      print(
+          "=========bloc listen ===================" + state.props.toString());
+      return (state is WormRunInProgress &&
+          prev.props.toString() != state.props.toString);
     }, builder: (context, state) {
       return Container(
           height: height * 0.60,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 10,
-                    mainAxisSpacing: 1,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: 1.4),
-                itemCount: numbers.length,
-                itemBuilder: (context, index) {
-                  var _curentBall = (int.tryParse(state.props[0].toString())! +
-                      int.tryParse(state.props[1].toString())! * 10);
-                  return ((index == _curentBall)
-                      ?
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 10,
+                      mainAxisSpacing: 1,
+                      crossAxisSpacing: 1,
+                      childAspectRatio: 1.4),
+                  itemCount: 100,
+                  itemBuilder: (context, index) {
+                    print('tttt');
 
-                      //GridButton(state.props[2].toString(), () {
-                      //  print(index.toString());
-                      // })
-                      CurrebBallButton(index, state.props[2].toString())
-                      : GridButton("", () {
-                          print(index.toString());
-                        }));
-                }),
-          ));
+                    int cy, cx;
+
+                    cx = index % 10;
+                    cy = index ~/ 10;
+                    Point cp = state.worm.balls.firstWhere(
+                        (a) => a.x == cx && a.y == cy,
+                        orElse: () => Point(cx, cy, "-"));
+                    if (cp.direction != "-") {
+                      print('Found Grid Point :' + cp.toString());
+                    }
+
+                    return ((cp.direction != "-")
+                        ? CurrebBallButton(index, cp.direction)
+                        : GridButton("", () {
+                            print(index.toString());
+                          }));
+                  })));
     });
   }
 
@@ -192,6 +98,9 @@ class Grid extends StatelessWidget {
         break;
       case ('RT'):
         _icon = Icons.arrow_right;
+        break;
+      case ('+'):
+        _icon = Icons.plus_one;
         break;
     }
     return FloatingActionButton(

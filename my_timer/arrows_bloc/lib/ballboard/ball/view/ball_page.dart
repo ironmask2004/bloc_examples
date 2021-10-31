@@ -15,12 +15,13 @@ class ViewBall extends StatelessWidget {
         return prev.runtimeType != state.runtimeType;
       },
       builder: (context, state) {
-        return Row(
-          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ballText(),
-            BallFloatingAction(context),
+            // ballText(),
             BallAddTailFloatingAction(context),
+            BallFloatingAction(context),
+
             BallRemoveTailFloatingAction(context),
           ],
         );
@@ -51,7 +52,7 @@ FloatingActionButton BallAddTailFloatingAction(BuildContext context) {
   if (_ballState is BallRunInProgress) {
     return FloatingActionButton(
         child: const Icon(Icons.double_arrow),
-        onPressed: () => context.read<WormBloc>().add(const WormtailAded()));
+        onPressed: () => context.read<WormBloc>().add(const WormtailAdded()));
   } else {
     return FloatingActionButton(
         child: const Icon(Icons.double_arrow), onPressed: () => print('-'));

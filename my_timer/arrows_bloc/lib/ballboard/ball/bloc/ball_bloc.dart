@@ -69,34 +69,31 @@ class BallBloc extends Bloc<BallEvent, BallState> {
 
             _y = (state.y <= 0) ? _maxY : state.y - 1;
 
-            emit(BallRunInProgress(_x, _y, state.direction));
             break;
           }
         case 'DN':
           {
             _y = (state.y >= _maxY) ? 0 : state.y + 1;
-            emit(BallRunInProgress(_x, _y, state.direction));
             break;
           }
         case 'LF':
           {
             _x = (state.x <= 0) ? _maxX : state.x - 1;
-            emit(BallRunInProgress(_x, _y, state.direction));
             break;
           }
         case 'RT':
           {
             _x = (state.x >= _maxX) ? 0 : state.x + 1;
-            emit(BallRunInProgress(_x, _y, state.direction));
             break;
           }
         case '+':
           {
             print('+');
             emit(BallRunInProgress(0, 0, state.direction));
-            break;
+            return;
           }
       }
+      emit(BallRunInProgress(_x, _y, state.direction));
     });
 
     @override

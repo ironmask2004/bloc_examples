@@ -28,8 +28,23 @@ class WormBloc extends Bloc<WormEvent, WormState> {
             Worm(const Point(0, 0, '+')))) {
     _ballSubscription?.cancel();
 
-    _ballSubscription = _ballBloc.stream
-        .listen((state) => add(WormDirChanged(state.direction)));
+    _ballSubscription = _ballBloc.stream.listen((state) {
+      print('listend to newstate ' + state.toString());
+
+      switch (state.toString()) {
+        case "BallRunChangeDir":
+          add(WormDirChanged(state.direction));
+          break;
+      }
+      add(WormTicked(state.toString()));
+    });
+
+    on<WormTicked>((event, emit) {
+      print('Ticleck!!!!');
+      print(state.toString());
+      add(WormMoved());
+      emit(WormRunInProgress(state.wormCanvas, state.worm));
+    });
 
     on<WormStarted>((event, emit) {
       print('Worm Started!!!!');
@@ -60,9 +75,11 @@ class WormBloc extends Bloc<WormEvent, WormState> {
     });
 
     on<WormMoved>((event, emit) {
+      print('Worm Moved');
+
       Point _wormHead = state.worm.balls[0].copyWith();
       int _x = _wormHead.x, _y = _wormHead.y;
-
+      print("before" + state.worm.balls.toString());
       print('----------ball moved --------=====');
       switch (_wormHead.direction) {
         case 'UP':
@@ -97,11 +114,11 @@ class WormBloc extends Bloc<WormEvent, WormState> {
       }
       _worm.balls.insert(0, Point(_x, _y, _wormHead.direction));
       _worm.balls.removeLast();
-      print(_worm.balls.toString());
+      print("after" + _worm.balls.toString());
       emit(WormRunInProgress(_wormCanvas, _worm));
     });
 
-    on<WormtailAded>((event, emit) {
+    on<WormtailAdded>((event, emit) {
       Point _wormLast =
           state.worm.balls[state.worm.balls.length - 1].copyWith();
 
