@@ -4,8 +4,8 @@ part of 'ball_bloc.dart';
 abstract class BallState extends Equatable {
   final int x;
   final int y;
-  final int maxY = 10;
-  final int maxX = 10;
+  final int maxY = 9;
+  final int maxX = 9;
   final String direction;
 
   const BallState(this.x, this.y, this.direction);

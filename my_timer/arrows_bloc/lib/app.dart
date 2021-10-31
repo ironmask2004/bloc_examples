@@ -1,9 +1,10 @@
+import 'package:arrows_bloc/ballboard/board/bloc/worm_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
 import 'package:arrows_bloc/ballboard/ball/ball.dart';
 import 'package:arrows_bloc/core/ticker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:arrows_bloc/ballboard/board/view/board.dart';
+import 'package:arrows_bloc/ballboard/board/view/board_page.dart';
 
 class App1 extends StatelessWidget {
   const App1({Key? key}) : super(key: key);
@@ -16,7 +17,14 @@ class App1 extends StatelessWidget {
         BallBloc(ticker: TimeTicker(), arrowsBloc: MyarrowsBloc)
           ..add(const BallReset());
 
-    print(MyarrowsBloc.runtimeType.hashCode.toString());
+    // WormBloc MyWormBloc = WormBloc(ballBloc: MyBallBloc)
+    //    ..add(const WormReset());
+
+    //print(MyarrowsBloc.runtimeType.hashCode.toString());
+    //print(MyWormBloc.state.worm.balls);
+    // MyWormBloc.add(const WormtailAded());
+    //  print(MyWormBloc.state.worm.balls);
+
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => MyarrowsBloc),
