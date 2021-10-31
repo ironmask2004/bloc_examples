@@ -17,13 +17,15 @@ class App1 extends StatelessWidget {
         BallBloc(ticker: TimeTicker(), arrowsBloc: MyarrowsBloc)
           ..add(const BallReset());
 
-    // WormBloc MyWormBloc = WormBloc(ballBloc: MyBallBloc)
-    //    ..add(const WormReset());
+    WormBloc MyWormBloc = WormBloc(ballBloc: MyBallBloc)
+      ..add(const WormReset());
 
-    //print(MyarrowsBloc.runtimeType.hashCode.toString());
-    //print(MyWormBloc.state.worm.balls);
-    // MyWormBloc.add(const WormtailAded());
-    //  print(MyWormBloc.state.worm.balls);
+    // print(MyarrowsBloc.runtimeType.hashCode.toString());
+    print('MyWormBloc: ' + MyWormBloc.state.worm.balls.toString());
+    MyWormBloc.add(const WormDirChanged("DN"));
+    MyWormBloc.add(const WormtailAded());
+
+    print(MyWormBloc.state.worm.balls);
 
     return MultiBlocProvider(
         providers: [
