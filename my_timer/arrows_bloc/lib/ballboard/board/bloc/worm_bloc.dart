@@ -12,7 +12,7 @@ part 'worm_state.dart';
 class WormBloc extends Bloc<WormEvent, WormState> {
   List<int> _wormCanvas = List<int>.filled(100, 0, growable: true); // [0, 0, 0]
 
-  Worm _worm = Worm(Point(0, 0, '+'));
+  Worm _worm = Worm(Point(0, 0, '+', 0));
 
   final BallBloc _ballBloc;
 
@@ -25,7 +25,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
     required BallBloc ballBloc,
   })  : _ballBloc = ballBloc,
         super(WormInitial(List<int>.filled(100, 0, growable: true),
-            Worm(const Point(0, 0, '+')))) {
+            Worm(const Point(0, 0, '+', 0)))) {
     _ballSubscription?.cancel();
     _ballSubscription = _ballBloc.stream.listen((state) {
       print('listend to newstate ' + state.toString());
@@ -72,7 +72,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
 
     on<WormReset>((event, emit) {
       emit(WormInitial(List<int>.filled(100, 0, growable: true),
-          Worm(const Point(0, 0, '+'))));
+          Worm(const Point(0, 0, '+', 0))));
     });
 
     on<WormMoved>((event, emit) {
@@ -111,9 +111,15 @@ class WormBloc extends Bloc<WormEvent, WormState> {
             break;
           }
       }
-      _worm.balls.insert(0, Point(_x, _y, _wormHead.direction));
+      _worm.balls
+          .insert(0, Point(_x, _y, _wormHead.direction, _worm.balls.length));
       _worm.balls.removeLast();
+
+      _worm.balls.asMap().forEach((index, valuee) {
+        _worm.balls[index] = valuee.copyWith(index: index);
+      });
       print("after" + _worm.balls.toString());
+
       emit(WormRunInProgress(_wormCanvas, _worm));
     });
 
@@ -154,7 +160,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
             break;
           }
       }
-      _worm.balls.add(Point(_x, _y, _wormLast.direction));
+      _worm.balls.add(Point(_x, _y, _wormLast.direction, _worm.balls.length));
       print(_worm.balls.toString());
       emit(WormRunInProgress(_wormCanvas, _worm));
     });

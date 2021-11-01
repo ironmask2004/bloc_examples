@@ -4,21 +4,19 @@ class Point extends Equatable {
   final int x;
   final int y;
   final String direction;
+  final int index;
 
-  const Point(this.x, this.y, this.direction);
+  const Point(this.x, this.y, this.direction, this.index);
 
   @override
-  List<Object> get props => [x, y, direction];
+  List<Object> get props => [x, y, direction, index];
 
-  Point copyWith({
-    int? x,
-    int? y,
-    String? direction,
-  }) {
+  Point copyWith({int? x, int? y, String? direction, int? index}) {
     return Point(
       x ?? this.x,
       y ?? this.y,
       direction ?? this.direction,
+      index ?? this.index,
     );
   }
 }

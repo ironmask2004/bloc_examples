@@ -72,13 +72,13 @@ class Grid extends StatelessWidget {
                     cy = index ~/ 10;
                     Point cp = state.worm.balls.firstWhere(
                         (a) => a.x == cx && a.y == cy,
-                        orElse: () => Point(cx, cy, "-"));
+                        orElse: () => Point(cx, cy, "-", 0));
                     if (cp.direction != "-") {
                       print('Found Grid Point :' + cp.toString());
                     }
 
                     return ((cp.direction != "-")
-                        ? CurrebBallButton(index, cp.direction)
+                        ? CurrebBallButton(index, cp.direction, cp.index)
                         : GridButton("", () {
                             print(index.toString());
                           }));
@@ -86,7 +86,8 @@ class Grid extends StatelessWidget {
     });
   }
 
-  FloatingActionButton CurrebBallButton(int index, String _direction) {
+  FloatingActionButton CurrebBallButton(
+      int index, String _direction, _ballindex) {
     var _icon = Icons.add;
     print('Diection IIIIIIIIIIIIII $_direction');
     switch (_direction) {
@@ -97,17 +98,19 @@ class Grid extends StatelessWidget {
         _icon = Icons.arrow_downward;
         break;
       case ('LF'):
-        _icon = Icons.arrow_left;
+        _icon = Icons.arrow_back;
         break;
       case ('RT'):
-        _icon = Icons.arrow_right;
+        _icon = Icons.arrow_forward;
         break;
       case ('+'):
         _icon = Icons.face;
         break;
     }
-    return FloatingActionButton(
-        child: Icon(_icon),
+    return FloatingActionButton.extended(
+        icon: Icon(_icon),
+        label: Text('$_ballindex'),
+        backgroundColor: Colors.yellow,
         onPressed: () {
           print(index.toString());
         });
