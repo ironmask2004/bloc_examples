@@ -51,7 +51,7 @@ class homePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Flutter Arrows')),
+        appBar: AppBar(title: const Text('Flutter Bloc  Testing')),
         body: Stack(
           children: [
             const Background(),

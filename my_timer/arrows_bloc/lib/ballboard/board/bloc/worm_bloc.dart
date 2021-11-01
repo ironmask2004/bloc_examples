@@ -79,6 +79,9 @@ class WormBloc extends Bloc<WormEvent, WormState> {
       print('Worm Moved');
 
       Point _wormHead = state.worm.balls[0].copyWith();
+      Point _greenBall = state.worm.redGreenBalls[0].copyWith();
+      Point _redBall = state.worm.redGreenBalls[1].copyWith();
+
       int _x = _wormHead.x, _y = _wormHead.y;
       print("before" + state.worm.balls.toString());
       print('----------ball moved --------=====');
@@ -119,6 +122,22 @@ class WormBloc extends Bloc<WormEvent, WormState> {
         _worm.balls[index] = valuee.copyWith(index: index);
       });
       print("after" + _worm.balls.toString());
+
+      if (Point(_x, _y, _wormHead.direction, _worm.balls.length) ==
+          Point(_greenBall.x, _greenBall.y, _wormHead.direction,
+              _worm.balls.length)) {
+        print('Accedienn GREEEEEEEN');
+        add(WormtailAdded());
+        _worm.newGreenBalls();
+      } else if (Point(_x, _y, _wormHead.direction, _worm.balls.length) ==
+          Point(_redBall.x, _redBall.y, _wormHead.direction,
+              _worm.balls.length)) {
+        print('Accedienn REEEEEEEEEEEEEEEEEEEd');
+
+        //_worm.balls.removeLast();
+        add(Wormtailremoved());
+        _worm.newRedBalls();
+      }
 
       emit(WormRunInProgress(_wormCanvas, _worm));
     });

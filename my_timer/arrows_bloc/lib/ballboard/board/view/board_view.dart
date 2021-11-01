@@ -52,6 +52,9 @@ class Grid extends StatelessWidget {
           prev.props.toString() != state.props.toString);
     },*/
         builder: (context, state) {
+      List<Point> allBalls = List.from(state.worm.balls)
+        ..addAll(state.worm.redGreenBalls);
+
       return Container(
           height: height * 0.60,
           child: Padding(
@@ -70,9 +73,9 @@ class Grid extends StatelessWidget {
 
                     cx = index % 10;
                     cy = index ~/ 10;
-                    Point cp = state.worm.balls.firstWhere(
-                        (a) => a.x == cx && a.y == cy,
-                        orElse: () => Point(cx, cy, "-", 0));
+                    Point cp = // state.worm.balls.
+                        allBalls.firstWhere((a) => a.x == cx && a.y == cy,
+                            orElse: () => Point(cx, cy, "-", 0));
                     if (cp.direction != "-") {
                       print('Found Grid Point :' + cp.toString());
                     }
@@ -89,28 +92,46 @@ class Grid extends StatelessWidget {
   FloatingActionButton CurrebBallButton(
       int index, String _direction, _ballindex) {
     var _icon = Icons.add;
+    var _color = Colors.yellow;
+    var _text;
     print('Diection IIIIIIIIIIIIII $_direction');
     switch (_direction) {
       case ('UP'):
         _icon = Icons.arrow_upward;
+        _color = Colors.yellow;
         break;
       case ('DN'):
         _icon = Icons.arrow_downward;
+        _color = Colors.yellow;
         break;
       case ('LF'):
         _icon = Icons.arrow_back;
+        _color = Colors.yellow;
         break;
       case ('RT'):
         _icon = Icons.arrow_forward;
+        _color = Colors.yellow;
         break;
       case ('+'):
         _icon = Icons.face;
+        _color = Colors.yellow;
+        break;
+      case ('G'):
+        _icon = Icons.plus_one;
+        _color = Colors.green;
+
+        break;
+      case ('R'):
+        _color = Colors.red;
+
+        _icon = Icons.warning_amber;
         break;
     }
+    _text = (_direction == 'R' || _direction == 'G') ? '' : '$_ballindex';
     return FloatingActionButton.extended(
         icon: Icon(_icon),
-        label: Text('$_ballindex'),
-        backgroundColor: Colors.yellow,
+        label: Text(_text),
+        backgroundColor: _color,
         onPressed: () {
           print(index.toString());
         });
