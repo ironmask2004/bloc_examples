@@ -27,17 +27,14 @@ class WormBloc extends Bloc<WormEvent, WormState> {
         super(WormInitial(List<int>.filled(100, 0, growable: true),
             Worm(const Point(0, 0, '+')))) {
     _ballSubscription?.cancel();
-
     _ballSubscription = _ballBloc.stream.listen((state) {
       print('listend to newstate ' + state.toString());
-
       switch (state.toString()) {
         case "BallRunChangeDir":
           add(WormDirChanged(state.direction));
           break;
         default:
           add(WormTicked(state.toString()));
-
           break;
       }
     });
