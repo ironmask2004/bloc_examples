@@ -41,14 +41,17 @@ class Grid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = size.height;
-    return BlocBuilder<WormBloc, WormState>(buildWhen: (prev, state) {
+    return BlocBuilder<WormBloc, WormState>(
+
+        /*buildWhen: (prev, state) {
       print(
           'Prev: ' + prev.props.toString() + ' Next ' + state.props.toString());
       print(
           "=========bloc listen ===================" + state.props.toString());
       return (state is WormRunInProgress &&
           prev.props.toString() != state.props.toString);
-    }, builder: (context, state) {
+    },*/
+        builder: (context, state) {
       return Container(
           height: height * 0.60,
           child: Padding(
@@ -61,7 +64,7 @@ class Grid extends StatelessWidget {
                       childAspectRatio: 1.4),
                   itemCount: 100,
                   itemBuilder: (context, index) {
-                    print('tttt');
+                    //  print('tttt');
 
                     int cy, cx;
 
@@ -100,7 +103,7 @@ class Grid extends StatelessWidget {
         _icon = Icons.arrow_right;
         break;
       case ('+'):
-        _icon = Icons.plus_one;
+        _icon = Icons.face;
         break;
     }
     return FloatingActionButton(

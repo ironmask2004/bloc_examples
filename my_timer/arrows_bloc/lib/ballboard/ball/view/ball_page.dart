@@ -1,9 +1,10 @@
-import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
+//import 'package:arrows_bloc/ballboard/arrows/arrows.dart';
 import 'package:arrows_bloc/ballboard/board/bloc/worm_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:arrows_bloc/ballboard/ball/ball.dart';
-import 'package:arrows_bloc/core/ticker.dart';
+//import 'package:arrows_bloc/core/ticker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ViewBall extends StatelessWidget {
   const ViewBall({Key? key}) : super(key: key);
@@ -51,11 +52,17 @@ FloatingActionButton BallAddTailFloatingAction(BuildContext context) {
 
   if (_ballState is BallRunInProgress) {
     return FloatingActionButton(
-        child: const Icon(Icons.double_arrow),
+        child: const Icon(FontAwesomeIcons.angleDoubleUp
+            // size: 50,
+            ),
         onPressed: () => context.read<WormBloc>().add(const WormtailAdded()));
   } else {
     return FloatingActionButton(
-        child: const Icon(Icons.double_arrow), onPressed: () => print('-'));
+        child: const Icon(
+          FontAwesomeIcons.angleDoubleUp,
+          //  size: 50,
+        ),
+        onPressed: null);
   }
 }
 
@@ -64,11 +71,17 @@ FloatingActionButton BallRemoveTailFloatingAction(BuildContext context) {
 
   if (_ballState is BallRunInProgress) {
     return FloatingActionButton(
-        child: const Icon(Icons.arrow_back),
+        child: const Icon(FontAwesomeIcons.angleDoubleDown
+            // size: 50,
+            ),
         onPressed: () => context.read<WormBloc>().add(const Wormtailremoved()));
   } else {
     return FloatingActionButton(
-        child: const Icon(Icons.double_arrow), onPressed: () => print('-'));
+        child: const Icon(
+          FontAwesomeIcons.angleDoubleDown,
+          //  size: 50,
+        ),
+        onPressed: null);
   }
 }
 

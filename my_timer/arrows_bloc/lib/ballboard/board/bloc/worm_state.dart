@@ -33,6 +33,12 @@ class WormRunInProgress extends WormState {
   String toString() => 'WormRunInProgress';
 }
 
+class WormTick extends WormState {
+  const WormTick(List<int> wormCanvas, Worm worm) : super(wormCanvas, worm);
+  @override
+  String toString() => 'WormTick';
+}
+
 class WormRunChangeDir extends WormState {
   const WormRunChangeDir(List<int> wormCanvas, Worm worm)
       : super(wormCanvas, worm);

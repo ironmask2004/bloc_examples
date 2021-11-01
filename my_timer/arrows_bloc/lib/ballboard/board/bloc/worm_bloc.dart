@@ -35,15 +35,18 @@ class WormBloc extends Bloc<WormEvent, WormState> {
         case "BallRunChangeDir":
           add(WormDirChanged(state.direction));
           break;
+        default:
+          add(WormTicked(state.toString()));
+
+          break;
       }
-      add(WormTicked(state.toString()));
     });
 
     on<WormTicked>((event, emit) {
-      print('Ticleck!!!!');
+      print('Worm  -------------->  Ticked !!!!');
       print(state.toString());
       add(WormMoved());
-      emit(WormRunInProgress(state.wormCanvas, state.worm));
+      emit(WormTick(state.wormCanvas, state.worm));
     });
 
     on<WormStarted>((event, emit) {
@@ -59,6 +62,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
     });
 
     on<WormDirChanged>((event, emit) {
+      print('|||||||||||||status while change direction :' + state.toString());
       _worm.wormChangeDirection(event.newDirection);
       emit(WormRunChangeDir(_wormCanvas, _worm));
     });
@@ -85,7 +89,6 @@ class WormBloc extends Bloc<WormEvent, WormState> {
         case 'UP':
           {
             print('=UP=');
-
             _y = (_wormHead.y <= 0) ? _maxY : _wormHead.y - 1;
             break;
           }
@@ -108,7 +111,6 @@ class WormBloc extends Bloc<WormEvent, WormState> {
           {
             print('+');
             //
-
             break;
           }
       }
@@ -161,9 +163,11 @@ class WormBloc extends Bloc<WormEvent, WormState> {
     });
 
     on<Wormtailremoved>((event, emit) {
-      _worm.balls.removeLast();
-      print(_worm.balls.toString());
-      emit(WormRunInProgress(_wormCanvas, _worm));
+      if (_worm.balls.length > 1) {
+        _worm.balls.removeLast();
+        print(_worm.balls.toString());
+        emit(WormRunInProgress(_wormCanvas, _worm));
+      }
     });
   }
   @override
