@@ -145,7 +145,7 @@ class WormBloc extends Bloc<WormEvent, WormState> {
           }
         case 'LF':
           {
-            _x = (_wormLast.x > _maxX) ? 0 : _wormLast.x + 1;
+            _x = (_wormLast.x > _maxX) ? 0 : _wormLast.x + 1; //note
             break;
           }
         case 'RT':
